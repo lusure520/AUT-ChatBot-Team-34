@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Luis;
+using System.Collections.Generic;
 
 namespace Bot_Application2.Dialogs
 {
-    [LuisModel("d63333ff-2b5b-4a3d-afff-4ea8d6824aca", "a47bc275380c48538bcc5c1c2644e19b")]
     [Serializable]
     public class RootDialog : IDialog<object>
     {
@@ -21,13 +21,30 @@ namespace Bot_Application2.Dialogs
         {
             var activity = await result as Activity;
 
-            // calculate something for us to return
-            int length = (activity.Text ?? string.Empty).Length;
+            PromptDialog.Choice(context, this.AfterPromptSelection, new List<string>() { "ShowAllMajors", "SearchByName" }, "How can I help you?");
 
-            // return our reply to the user
-            await context.PostAsync($"You sent {activity.Text} which was {length} characters");
-
-            context.Wait(MessageReceivedAsync);
+            
         }
+
+        private async Task AfterPromptSelection(IDialogContext context, IAwaitable<string> result)
+        {
+            var optionSelected = await result;
+
+            switch(optionSelected)
+            {
+                case "ShowAllMajors":
+                    await context.PostAsync("That this dialog is not implemented yet");
+                    context.Wait(MessageReceivedAsync);
+                    break;
+                case "SearchByName":
+                    //context.Call(new MajorSearch(DSA), ResumeAfterOptionDialog);
+                    break;
+            }
+        }
+
+       /* private async Task ResumeAfterOptionDialog(IDialogContext context, IAwaitable<object> result)
+        {
+            context.Wait(MessageReceivedAsync);
+        }*/
     }
 }
