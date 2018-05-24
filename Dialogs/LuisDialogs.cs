@@ -28,6 +28,10 @@ namespace Bot_Application2.Dialogs
             await context.PostAsync(reply);
         }
 
+        /**
+         * Given a greeting result {greetingResult}, retrieves a greeting object corresponding
+         * to the entry in the Luis database with {greetingResult} as its result.
+         **/
         [LuisIntent("greeting")]
         public async Task QueryQuestion(IDialogContext context, LuisResult result)
         {
@@ -36,6 +40,10 @@ namespace Bot_Application2.Dialogs
             await context.PostAsync(message);
         }
 
+        /**
+         * Given a location result {locationResult}, retrieves a location object corresponding
+         * to the entry in the Luis database with {locationResult} as its result.
+         **/
         [LuisIntent("Location")]
         public async Task Location(IDialogContext context, LuisResult result)
         {
@@ -44,6 +52,10 @@ namespace Bot_Application2.Dialogs
             await context.PostAsync(message);
         }
 
+        /**
+         * Given a search result {searchPapersResult}, retrieves a paper object corresponding
+         * to the entry in the Luis database with {serarchPaperResult} as its result. 
+         **/
         [LuisIntent("SearchPapers")]
         public async Task SearchPapers(IDialogContext context, IAwaitable<IMessageActivity> activity , LuisResult result)
         {
@@ -61,6 +73,7 @@ namespace Bot_Application2.Dialogs
         {
             new NotImplementedException();
         }
+
 
         [LuisIntent("showPapers")]
         public async Task ShowPapers(IDialogContext context, LuisResult result)
