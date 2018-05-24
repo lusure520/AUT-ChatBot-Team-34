@@ -33,18 +33,18 @@ namespace Bot_Application2.Dialogs
             switch(optionSelected)
             {
                 case "ShowAllMajors":
-                    await context.PostAsync("That this dialog is not implemented yet, typing anything to show the selection again!");
+                    await context.PostAsync("That this dialog is not implemented yet");
                     context.Wait(MessageReceivedAsync);
                     break;
                 case "SearchByName":
-                    context.Call(new MajorSearch(), ResumeAfterOptionDialog);
+                    //context.Call(new MajorSearch(DSA), ResumeAfterOptionDialog);
                     break;
             }
         }
 
-       private async Task ResumeAfterOptionDialog(IDialogContext context, IAwaitable<object> result)
+       /* private async Task ResumeAfterOptionDialog(IDialogContext context, IAwaitable<object> result)
         {
             context.Wait(MessageReceivedAsync);
-        }
+        }*/
     }
 }

@@ -23,20 +23,12 @@ namespace Bot_Application2.Models
 
         public string Name { get; set; }
 
-        public string Level { get; set; }
+        public string Type { get; set; }
 
         public string id { get; set; }
 
-        public string Credit { get; set; }
-
-        public string Year { get; set; }
-
-        public string Semester { get; set; }
-
-        public string Type { get; set; }
-
-        public string Requisite { get; set; }
-
         public string rid { get; set; }
+
+       
     }
 }

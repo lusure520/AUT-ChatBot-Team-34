@@ -17,18 +17,17 @@ namespace Bot_Application2.Dialogs
         public string majorEntity;
         public string reply;
 
-        /*public MajorSearch(string majorEntity)
+        public MajorSearch(string majorEntity)
         {
             this.majorEntity = majorEntity;
-        }*/
+        }
 
         public async Task StartAsync(IDialogContext context)
         {
-            //string name = getEntity();
-            //await context.PostAsync("let's start searching");
-            await context.PostAsync("Tell me what you want to search");
-            context.Wait(MessageRecievedAsync);
-           /* 
+            string name = getEntity();
+            await context.PostAsync("let's start searching");
+            //context.Wait(MessageRecievedAsync);
+            
             SearchResult searchResult = await search.SearchByMajorName(name);
             if (searchResult.value.Length != 0)
             {
@@ -45,7 +44,6 @@ namespace Bot_Application2.Dialogs
                 await context.PostAsync($"{name} No data found");
             }
             context.Done<object>(null);
-            */
         }
 
         private string getEntity()
@@ -53,22 +51,19 @@ namespace Bot_Application2.Dialogs
             return this.majorEntity;
         }
 
-        private async Task MessageRecievedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
+        /*private async Task MessageRecievedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             var message = await result;
             try
             {
                 SearchResult searchResult = await search.SearchByMajorName(message.Text);
-                if(searchResult.value.Length != 1 )
+                if(searchResult.value.Length != 0)
                 {
                     Activity reply = ((Activity)message).CreateReply();
-                    reply.Text = "Here is the search result:" ;
+                    reply.Text = "Here is the first search result:" ;
                     for(var i= 0; i< searchResult.value.Length; i++)
                     {
-                        if (searchResult.value[i].Requisite.Contains(message.Text))
-                        {
-                            reply.Text += " \n " + searchResult.value[i].Name + searchResult.value[i].Requisite;
-                        }
+                        reply.Text += searchResult.value[i].Name + "  ";
                     }
                     await context.PostAsync(reply);
                 }
@@ -81,6 +76,6 @@ namespace Bot_Application2.Dialogs
                 string x = e.Message;
             }
             context.Done<object>(null);
-        }
+        }*/
     }
 }

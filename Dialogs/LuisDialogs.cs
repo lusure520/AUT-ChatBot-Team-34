@@ -114,19 +114,7 @@ namespace Bot_Application2.Dialogs
             {
                 data = majorEntity.entity;
             }
-            if (result.TryFindEntity("DSA", out majorEntity))
-            {
-                data = "DSA";
-            }
-            if (result.TryFindEntity("PDC", out majorEntity))
-            {
-                data = "PDC";
-            }
-            if (result.TryFindEntity("paper", out majorEntity))
-            {
-                data = "paper";
-            }
-            //context.Call(new MajorSearch(data), this.ResumeAfterMajorList);
+            context.Call(new MajorSearch(data), this.ResumeAfterMajorList);
         }
         private async Task ResumeAfterMajorList(IDialogContext context, IAwaitable<object> result)
         {
