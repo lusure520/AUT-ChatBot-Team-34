@@ -24,7 +24,7 @@ namespace Bot_Application2.Dialogs
         public async Task None(IDialogContext context, LuisResult result)
         {
             var username = context.Activity.From.Name;
-            string reply = $"Sorry {username}! I am unable to understand your question.  enter a vaild question";
+            string reply = $"Sorry {username}! I am unable to understand your question.  enter a vaild question.\n----------Notice---------\nThis chatbot can only reply quesition for software development major!\nFor search paper by Paper ID (such as 'COMP500')which you can get when you search major first(such as 'list paper for sd') ";
             await context.PostAsync(reply);
         }
 
@@ -32,102 +32,45 @@ namespace Bot_Application2.Dialogs
         public async Task QueryQuestion(IDialogContext context, LuisResult result)
         {
             var username = context.Activity.From.Name;
-            string message = $"Hello {username}! What is your question?.";
+            string message = $"Hello {username}! What is your question?\n----------Notice---------\n Search major question first please! \n To know how to use this chatbot, You can enter any word such as 'notice'";
             await context.PostAsync(message);
         }
 
         [LuisIntent("Location")]
         public async Task Location(IDialogContext context, LuisResult result)
         {
-            var username = context.Activity.From.Name;
             string message = $"fetch data from location.";
             await context.PostAsync(message);
         }
 
         [LuisIntent("getNextPaper")]
-        public async Task getNextPaper(IDialogContext context, IAwaitable<IMessageActivity> activity , LuisResult result)
-        {
-            var message = await activity;
-            string data = "";
-             EntityRecommendation majorEntity;
-            if (result.TryFindEntity("majorname" , out majorEntity))
-            {
-                data = majorEntity.entity;
+
             }
-            context.Call(new MajorSearch(data), this.ResumeAfterMajorList);
-        }
-        [LuisIntent("getPaperAfterFailed")]
-        public async Task getPaperAfterFailed(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            var message = await activity;
-            string data = "";
-            EntityRecommendation majorEntity;
-            if (result.TryFindEntity("papername", out majorEntity))
+            else
             {
-                data = majorEntity.entity;
+                await context.PostAsync(Notice());
             }
-            context.Call(new MajorSearch(data), this.ResumeAfterMajorList);
-        }
-        [LuisIntent("getPaperByJob")]
-        public async Task getPaperByJob(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            var message = await activity;
-            string data = "";
-            EntityRecommendation majorEntity;
-            if (result.TryFindEntity("jobname", out majorEntity))
-            {
-                data = majorEntity.entity;
-            }
-            context.Call(new MajorSearch(data), this.ResumeAfterMajorList);
-        }
-        [LuisIntent("getPaperByMajor")]
-        public async Task getPaperByMajor(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            var message = await activity;
-            string data = "";
-            EntityRecommendation majorEntity;
-            if (result.TryFindEntity("majorname", out majorEntity))
-            {
-                data = majorEntity.entity;
-            }
-            context.Call(new MajorSearch(data), this.ResumeAfterMajorList);
+            
         }
         [LuisIntent("getRequisite")]
         public async Task getRequisite(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string data = "";
+           
             EntityRecommendation majorEntity;
             if (result.TryFindEntity("papername", out majorEntity))
             {
-                data = majorEntity.entity;
+                
+                var data = majorEntity.Entity;
+                context.Call(new MajorSearch(data, "getRequisite"), this.ResumeAfterMajorList);
             }
-            context.Call(new MajorSearch(data), this.ResumeAfterMajorList);
+            else
+            {
+                await context.PostAsync(Notice());
+            }
+
         }
-        [LuisIntent("getSemester")]
-        public async Task getSemester(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            var message = await activity;
-            string data = "";
-            EntityRecommendation majorEntity;
-            if (result.TryFindEntity("yearvalue", out majorEntity))
-            {
-                data = majorEntity.entity;
-            }
-            if (result.TryFindEntity("DSA", out majorEntity))
-            {
-                data = "DSA";
-            }
-            if (result.TryFindEntity("PDC", out majorEntity))
-            {
-                data = "PDC";
-            }
-            if (result.TryFindEntity("paper", out majorEntity))
-            {
-                data = "paper";
-            }
-            //context.Call(new MajorSearch(data), this.ResumeAfterMajorList);
-        }
+
         private async Task ResumeAfterMajorList(IDialogContext context, IAwaitable<object> result)
         {
             new NotImplementedException();

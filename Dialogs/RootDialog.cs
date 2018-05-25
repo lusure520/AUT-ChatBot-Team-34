@@ -37,7 +37,7 @@ namespace Bot_Application2.Dialogs
                     context.Wait(MessageReceivedAsync);
                     break;
                 case "SearchByName":
-                    context.Call(new MajorSearch(), ResumeAfterOptionDialog);
+                    //context.Call(new MajorSearch(), ResumeAfterOptionDialog);
                     break;
             }
         }
