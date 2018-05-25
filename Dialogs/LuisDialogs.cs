@@ -44,7 +44,68 @@ namespace Bot_Application2.Dialogs
         }
 
         [LuisIntent("getNextPaper")]
+        public async Task getNextPaper(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string data = "";
+            EntityRecommendation majorEntity;
 
+            if (result.TryFindEntity("papername", out majorEntity))
+            {
+                data = majorEntity.Entity;
+                context.Call(new MajorSearch(data, "getNextPaper"), this.ResumeAfterMajorList);
+            }        
+            else
+            {
+                await context.PostAsync(Notice());
+            }
+            
+        }
+        [LuisIntent("getPaperAfterFailed")]
+        public async Task getPaperAfterFailed(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string data = "";
+            EntityRecommendation majorEntity;
+            if (result.TryFindEntity("papername", out majorEntity))
+            {
+                data = majorEntity.Entity;
+               
+                context.Call(new MajorSearch(data, "getPaperAfterFailed"), this.ResumeAfterMajorList);
+            }
+            else
+            {
+                await context.PostAsync(Notice());
+            }
+            
+
+        }
+        [LuisIntent("getPaperByJob")]
+        public async Task getPaperByJob(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string data = "";
+            EntityRecommendation majorEntity;
+            if (result.TryFindEntity("jobname", out majorEntity))
+            {
+                data = majorEntity.Entity;
+                context.Call(new MajorSearch(data, "getPaperByJob"), this.ResumeAfterMajorList);
+            }
+            else
+            {
+                await context.PostAsync(Notice());
+            }
+        }
+        [LuisIntent("getPaperByMajor")]
+        public async Task getPaperByMajor(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string data = "";
+            EntityRecommendation majorEntity;
+            if (result.TryFindEntity("majorname", out majorEntity))
+            {
+                data = majorEntity.Entity;
+                context.Call(new MajorSearch(data, "getPaperByMajor"), this.ResumeAfterMajorList);
             }
             else
             {
@@ -70,11 +131,31 @@ namespace Bot_Application2.Dialogs
             }
 
         }
+        [LuisIntent("getSemester")]
+        public async Task getSemester(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string data = "";
+            EntityRecommendation majorEntity;
+            if (result.TryFindEntity("papername", out majorEntity))
+            {
+                data = majorEntity.Entity;
+                context.Call(new MajorSearch(data, "getSemester"), this.ResumeAfterMajorList);
+            }
+            else
+            {
+                await context.PostAsync(Notice());
+            }
 
+        }
         private async Task ResumeAfterMajorList(IDialogContext context, IAwaitable<object> result)
         {
             new NotImplementedException();
         }
 
+        private string Notice()
+        {
+            return $"Sorry, I can't find the information for this question!"+" \n "+"Please check the words spelling or ask the question by other way!";
+        }
     }
 }
