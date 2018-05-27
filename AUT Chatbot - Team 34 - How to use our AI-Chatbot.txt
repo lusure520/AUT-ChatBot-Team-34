@@ -1,0 +1,11 @@
+Instructions for use our AI - ChatBot:
+
+At the start of communication with our AI - ChaBot, please search major first and there is only one major
+that is Software Development to search and then you can get valid response and illustrate that you to enter 
+another question like "list paper for sd or the whole name of that major".
+What is more, after that the AI - ChatBot is starting to search and list all paper for that major.
+And then if you want to search a specific paper that is implemented by paper ID (like COMP500 e.g.)that is already list when
+you enter searching the major of software development at the first.
+
+*All of the functions that PO list have successfully implemented in our AI - Chatbot.*
+*Just remember This chatbot can only reply questions for sofeware development major.*
